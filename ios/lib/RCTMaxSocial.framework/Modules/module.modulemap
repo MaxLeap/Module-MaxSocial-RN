@@ -1,0 +1,6 @@
+framework module RCTMaxSocial {
+  umbrella header "RCTMaxSocial.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "maxleap-socialshare-react-native",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh"
+  },
+  "main": "./index.js",
+  "devDependencies": {
+    "react": "^0.14.8",
+    "react-native": "^0.23.1",
+    "gulp": "^3.9.1",
+    "gulp-exec": "^2.1.2",
+    "maxleap-react-native": "^0.0.4"
+  },
+  "description": "MaxLeap SDK for ReactNative",
+  "directories": {
+    "example": "example"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/MaxLeap/SDK-ReactNative.git"
+  },
+  "keywords": [
+    "MaxLeap",
+    "HelpCenter",
+    "Support",
+    "ReactNative",
+    "JavaScript",
+    "Android",
+    "iOS"
+  ],
+  "author": "sidneyxu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MaxLeap/SDK-ReactNative/issues"
+  },
+  "homepage": "https://github.com/MaxLeap/SDK-ReactNative#readme",
+  "jshintConfig": {
+    "esversion": 6
+  }
+}

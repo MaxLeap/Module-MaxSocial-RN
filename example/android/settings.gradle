@@ -1,0 +1,6 @@
+rootProject.name = 'demo'
+
+include ':app'
+
+include 'sdk'
+project(':sdk').projectDir = new File("../../android/app")
