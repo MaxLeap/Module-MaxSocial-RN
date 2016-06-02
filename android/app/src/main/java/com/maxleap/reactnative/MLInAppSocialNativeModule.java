@@ -263,31 +263,21 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
 
     //location
     @ReactMethod
-    public void createLocation(String json, final Promise promise) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            final String userId = null;
-            final String followerId = null;
-            final boolean reverse = false;
-            final boolean black = false;
-            final String objectId = null;
-            final Constraint constraint = null;
-            final double longitude = 0;
-            final double latitude = 0;
-            worker.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONObject result = locationService.createLocation(userId, longitude, latitude);
-                        promise.resolve(result.toString());
-                    } catch (HermsException e) {
-                        promise.reject("" + e.getErrorCode(), e.getMessage());
-                    }
+    public void updateLocation(ReadableMap map, final Promise promise) {
+        final String userId = map.getString(USER_ID);
+        final double longitude = optDouble(map, LONGITUDE);
+        final double latitude = optDouble(map, LATITUDE);
+        worker.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject result = locationService.createLocation(userId, longitude, latitude);
+                    promise.resolve(result.toString());
+                } catch (HermsException e) {
+                    promise.reject("" + e.getErrorCode(), e.getMessage());
                 }
-            });
-        } catch (JSONException e) {
-            promise.reject(e);
-        }
+            }
+        });
     }
 
     @ReactMethod
