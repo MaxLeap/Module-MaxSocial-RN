@@ -578,27 +578,27 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         });
     }
 
-    @ReactMethod
-    public void getPhotoList(String json, final Promise promise) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            final String userId = null;
-            final String objectId = null;
-            worker.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONArray result = shuoShuoService.getPhotoList(userId, objectId);
-                        promise.resolve(result.toString());
-                    } catch (HermsException e) {
-                        promise.reject("" + e.getErrorCode(), e.getMessage());
-                    }
-                }
-            });
-        } catch (JSONException e) {
-            promise.reject(e);
-        }
-    }
+//    @ReactMethod
+//    public void getPhotoList(String json, final Promise promise) {
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//            final String userId = null;
+//            final String objectId = null;
+//            worker.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        JSONArray result = shuoShuoService.getPhotoList(userId, objectId);
+//                        promise.resolve(result.toString());
+//                    } catch (HermsException e) {
+//                        promise.reject("" + e.getErrorCode(), e.getMessage());
+//                    }
+//                }
+//            });
+//        } catch (JSONException e) {
+//            promise.reject(e);
+//        }
+//    }
 
     @ReactMethod
     public void downloadImg(ReadableMap map, final Promise promise) {
@@ -630,31 +630,31 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         });
     }
 
-    @ReactMethod
-    public void deletePhoto(String json, final Promise promise) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            final String userId = null;
-            final String followerId = null;
-            final boolean reverse = false;
-            final boolean black = false;
-            final String objectId = null;
-            final Constraint constraint = null;
-            worker.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONObject result = shuoShuoService.deletePhoto(userId, objectId);
-                        promise.resolve(result.toString());
-                    } catch (HermsException e) {
-                        promise.reject("" + e.getErrorCode(), e.getMessage());
-                    }
-                }
-            });
-        } catch (JSONException e) {
-            promise.reject(e);
-        }
-    }
+//    @ReactMethod
+//    public void deletePhoto(String json, final Promise promise) {
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//            final String userId = null;
+//            final String followerId = null;
+//            final boolean reverse = false;
+//            final boolean black = false;
+//            final String objectId = null;
+//            final Constraint constraint = null;
+//            worker.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        JSONObject result = shuoShuoService.deletePhoto(userId, objectId);
+//                        promise.resolve(result.toString());
+//                    } catch (HermsException e) {
+//                        promise.reject("" + e.getErrorCode(), e.getMessage());
+//                    }
+//                }
+//            });
+//        } catch (JSONException e) {
+//            promise.reject(e);
+//        }
+//    }
 
     @ReactMethod
     public void fetchShuoNear(ReadableMap map, final Promise promise) {
@@ -674,57 +674,57 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         });
     }
 
-    @ReactMethod
-    public void getLatestShuoShuo(String json, final Promise promise) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            final String userId = null;
-            final String followerId = null;
-            final boolean reverse = false;
-            final boolean black = false;
-            final String objectId = null;
-            final Constraint constraint = null;
-            worker.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONObject result = shuoShuoService.getLatestShuoShuo(constraint);
-                        promise.resolve(result.toString());
-                    } catch (HermsException e) {
-                        promise.reject("" + e.getErrorCode(), e.getMessage());
-                    }
-                }
-            });
-        } catch (JSONException e) {
-            promise.reject(e);
-        }
-    }
+//    @ReactMethod
+//    public void getLatestShuoShuo(String json, final Promise promise) {
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//            final String userId = null;
+//            final String followerId = null;
+//            final boolean reverse = false;
+//            final boolean black = false;
+//            final String objectId = null;
+//            final Constraint constraint = null;
+//            worker.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        JSONObject result = shuoShuoService.getLatestShuoShuo(constraint);
+//                        promise.resolve(result.toString());
+//                    } catch (HermsException e) {
+//                        promise.reject("" + e.getErrorCode(), e.getMessage());
+//                    }
+//                }
+//            });
+//        } catch (JSONException e) {
+//            promise.reject(e);
+//        }
+//    }
 
-    @ReactMethod
-    public void getFriendCycleShuoShuo(String json, final Promise promise) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            final String userId = null;
-            final String followerId = null;
-            final boolean reverse = false;
-            final boolean black = false;
-            final String objectId = null;
-            final Constraint constraint = null;
-            worker.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONObject result = shuoShuoService.getFriendCycleShuoShuo(userId, constraint);
-                        promise.resolve(result.toString());
-                    } catch (HermsException e) {
-                        promise.reject("" + e.getErrorCode(), e.getMessage());
-                    }
-                }
-            });
-        } catch (JSONException e) {
-            promise.reject(e);
-        }
-    }
+//    @ReactMethod
+//    public void getFriendCycleShuoShuo(String json, final Promise promise) {
+//        try {
+//            JSONObject jsonObject = new JSONObject(json);
+//            final String userId = null;
+//            final String followerId = null;
+//            final boolean reverse = false;
+//            final boolean black = false;
+//            final String objectId = null;
+//            final Constraint constraint = null;
+//            worker.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        JSONObject result = shuoShuoService.getFriendCycleShuoShuo(userId, constraint);
+//                        promise.resolve(result.toString());
+//                    } catch (HermsException e) {
+//                        promise.reject("" + e.getErrorCode(), e.getMessage());
+//                    }
+//                }
+//            });
+//        } catch (JSONException e) {
+//            promise.reject(e);
+//        }
+//    }
 
     private Map<String, String> convertMap(ReadableMap readableMap) {
         if (readableMap == null) return null;
