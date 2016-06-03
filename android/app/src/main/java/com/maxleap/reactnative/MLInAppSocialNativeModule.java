@@ -12,6 +12,7 @@ import com.maxleap.social.HermsException;
 import com.maxleap.social.LocationService;
 import com.maxleap.social.RelationService;
 import com.maxleap.social.ShuoShuoService;
+import com.maxleap.social.SocialPassService;
 import com.maxleap.social.entity.Constraint;
 import com.maxleap.social.entity.ShuoShuo;
 import com.maxleap.social.thirdparty.internal.ProgressCallback;
@@ -41,6 +42,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     private final ShuoShuoService shuoShuoService;
     private final CommentService commentService;
     private final LocationService locationService;
+    private final SocialPassService socialPassService;
 
     private int timeout = 15000;
 
@@ -58,6 +60,11 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     public static final String LONGITUDE = "longitude";
     public static final String SHUO_ID = "shuoId";
     public static final String DISTANCE = "distance";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String MOBILE_PHONE = "mobilePhone";
+    public static final String SMS_CODE = "smsCode";
+
 
     public MLInAppSocialNativeModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -65,12 +72,15 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         shuoShuoService = new ShuoShuoService(SERVER, timeout);
         commentService = new CommentService(SERVER);
         locationService = new LocationService(SERVER);
+        socialPassService = new SocialPassService(SERVER);
     }
 
     @Override
     public String getName() {
         return LIBRARY_NAME;
     }
+
+
 
     //    relation
     @ReactMethod
@@ -79,6 +89,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         final String followerId = map.getString(FOLLOWEE_ID);
         final boolean reverse = optBoolean(map, REVERSE, true);
         final boolean black = false;
+
         worker.execute(new Runnable() {
             @Override
             public void run() {
@@ -725,6 +736,73 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
 //            promise.reject(e);
 //        }
 //    }
+
+    @ReactMethod
+    public void signUp(ReadableMap map, final Promise promise) {
+        final String username = optString(map, USERNAME);
+        final String password = optString(map, PASSWORD);
+        worker.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject result = socialPassService.register(username, password);
+                    promise.resolve(result.toString());
+                } catch (HermsException e) {
+                    promise.reject("" + e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    @ReactMethod
+    public void login(ReadableMap map, final Promise promise) {
+        final String username = optString(map, USERNAME);
+        final String password = optString(map, PASSWORD);
+        worker.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject result = socialPassService.login(username, password);
+                    promise.resolve(result.toString());
+                } catch (HermsException e) {
+                    promise.reject("" + e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    @ReactMethod
+    public void loginByMobile(ReadableMap map, final Promise promise) {
+        final String mobilePhone = optString(map, MOBILE_PHONE);
+        final String smsCode = optString(map, SMS_CODE);
+        worker.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject result = socialPassService.loginByMobile(mobilePhone, smsCode);
+                    promise.resolve(result.toString());
+                } catch (HermsException e) {
+                    promise.reject("" + e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    @ReactMethod
+    public void requestSmsCode(ReadableMap map, final Promise promise) {
+        final String mobilePhone = optString(map, MOBILE_PHONE);
+        worker.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    JSONObject result = socialPassService.getSmsCode(mobilePhone);
+                    promise.resolve(result.toString());
+                } catch (HermsException e) {
+                    promise.reject("" + e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
 
     private Map<String, String> convertMap(ReadableMap readableMap) {
         if (readableMap == null) return null;

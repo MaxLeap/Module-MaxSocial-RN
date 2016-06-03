@@ -219,7 +219,10 @@ class MaxSocialUser {
     return promise;
   }
 
-  // fetchLocationInfoWithObjectId
+  getLocationByUserId() {
+    let promise = MaxSocialNative.getLocationByUserId(this.userId);
+    return promise;
+  }
 
   findUserNear(latitude=0, longitude=0, distance=1000) {
     let userId = this.userId;

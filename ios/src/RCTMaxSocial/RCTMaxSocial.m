@@ -287,7 +287,15 @@ RCT_EXPORT_METHOD(updateLocation:(NSDictionary *)params
     [self post:path body:body completion:COMPLETION_BLOCK];
 }
 
-RCT_EXPORT_METHOD(getLocation:(NSString *)userId
+RCT_EXPORT_METHOD(getLocation:(NSString *)locationObjectId
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/%@", userId];
+    [self get:path params:nil completion:COMPLETION_BLOCK];
+}
+
+RCT_EXPORT_METHOD(getLocationByUserId:(NSString *)userId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
