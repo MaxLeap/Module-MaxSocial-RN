@@ -65,6 +65,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     public static final String MOBILE_PHONE = "mobilePhone";
     public static final String SMS_CODE = "smsCode";
 
+
     public MLInAppSocialNativeModule(ReactApplicationContext reactContext) {
         super(reactContext);
         relationService = new RelationService(SERVER);
