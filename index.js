@@ -214,8 +214,8 @@ class MaxSocialUser {
     return promise;
   }
 
-  getLocation() {
-    let promise = MaxSocialNative.getLocation(this.userId);
+  getLocation(locationId) {
+    let promise = MaxSocialNative.getLocation(locationId);
     return promise;
   }
 
