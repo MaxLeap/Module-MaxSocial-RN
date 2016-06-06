@@ -21,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -485,15 +486,19 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void postShuo(ReadableMap map, final Promise promise) {
         final ShuoShuo shuoShuo = new ShuoShuo();
-        shuoShuo.setContent(optString(map, TEXT));
-        shuoShuo.setLink(optString(map, LINK));
-        shuoShuo.setPhotoPath(converArray(optArray(map, IMAGE_PATH)));
-        ReadableMap location = optMap(map, LOCATION);
+        ReadableMap shuoMap = map.getMap("shuo");
+        System.out.println(shuoMap);
+        shuoShuo.setContent(optString(shuoMap, TEXT));
+        shuoShuo.setUserId(optString(map, USER_ID));
+        shuoShuo.setLink(optString(shuoMap, LINK));
+        shuoShuo.setPhotoPath(converArray(optArray(shuoMap, IMAGE_PATH)));
+        ReadableMap location = optMap(shuoMap, LOCATION);
         if (location != null) {
             shuoShuo.setLatitude(optDouble(location, LATITUDE));
             shuoShuo.setLongitude(optDouble(location, LONGITUDE));
         }
-        shuoShuo.setFriendCircle(optBoolean(map, SQUARE, false));
+        boolean square = optBoolean(shuoMap, SQUARE, true);
+        shuoShuo.setFriendCircle(!square);
         worker.execute(new Runnable() {
             @Override
             public void run() {
@@ -575,7 +580,8 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void fetchFriendCycleShuo(ReadableMap map, final Promise promise) {
         final String userId = map.getString(USER_ID);
-        final Constraint constraint = mapConstraint(map);
+        ReadableMap paramsMap = map.getMap("params");
+        final Constraint constraint = mapConstraint(paramsMap);
         worker.execute(new Runnable() {
             @Override
             public void run() {
