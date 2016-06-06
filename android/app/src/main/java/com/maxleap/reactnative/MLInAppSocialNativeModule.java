@@ -789,8 +789,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void requestSmsCode(ReadableMap map, final Promise promise) {
-        final String mobilePhone = optString(map, MOBILE_PHONE);
+    public void requestSmsCode(final String mobilePhone, final Promise promise) {;
         worker.execute(new Runnable() {
             @Override
             public void run() {
