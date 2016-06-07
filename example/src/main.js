@@ -261,7 +261,7 @@ export default class Main extends Component {
         <TouchableHighlight
             style={[{backgroundColor: 'aqua'},styles.btnMargin]}
             onPress={this._checkStatusBetweenUser.bind(this)}>
-          <Text>get Relation information between Users!!!</Text>
+          <Text>check Status Between Users!!!</Text>
         </TouchableHighlight>
 
         <TouchableHighlight
@@ -348,7 +348,7 @@ export default class Main extends Component {
     new MaxSocial.User(userId).follow(anotherUserId, reverse)
     .then(function(result) {
       console.log(result);
-      relationId = result.objectId;
+      relationId = result[0].objectId;
     })
     .catch(e=>console.log(e));
   }
@@ -451,7 +451,10 @@ export default class Main extends Component {
 
   _likeShuo() {
     new MaxSocial.User(userId).likeShuo(shuoId)
-    .then(result => console.log(result))
+    .then(function(result) {
+      console.log(result);
+      commentId = JSON.parse(result).objectId;
+    })
     .catch(e=>console.log(e));
   }
 
