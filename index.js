@@ -140,7 +140,13 @@ class MaxSocialUser {
 
   deleteShuo(shuoId) {
     let userId = this.userId;
-    let promise = MaxSocialNative.deleteShuo({userId, shuoId});
+    let promise = MaxSocialNative.deleteShuo(shuoId);
+    return promise;
+  }
+
+  deleteShuoPhotos(shuoId) {
+    let userId = this.userId;
+    let promise = MaxSocialNative.deleteShuoPhotos({userId, shuoId});
     return promise;
   }
 

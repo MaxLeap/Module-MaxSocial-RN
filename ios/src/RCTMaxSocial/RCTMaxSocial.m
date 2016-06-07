@@ -211,7 +211,15 @@ RCT_EXPORT_METHOD(fetchShuo:(NSString *)shuoId
     [self get:path params:nil completion:COMPLETION_BLOCK];
 }
 
-RCT_EXPORT_METHOD(deleteShuo:(NSDictionary *)params
+RCT_EXPORT_METHOD(deleteShuo:(NSString *)shuoId
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    NSString *path = [NSString stringWithFormat:@"/maxsocial/shuo/objectId/%@", shuoId];
+    [self deletePath:path body:nil completion:COMPLETION_BLOCK];
+}
+
+RCT_EXPORT_METHOD(deleteShuoPhotos:(NSDictionary *)params
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
