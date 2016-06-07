@@ -195,20 +195,6 @@ class MaxSocialUser {
     return promise;
   }
 
-  // getImageNamesOfShuoShuo
-
-  // unneccessary
-  // downloadImg().then(imgPath=>{})
-  downloadImg(imageUrl, shuoId, progress=p=>{}) {
-    let userId = this.userId;
-    let params = {userId, imageUrl, shuoId};
-    debugger;
-    let promise = MaxSocialNative.downloadImg(params, progress);
-    return promise;
-  }
-
-
-
   updateLocation(latitude=0, longitude=0) {
     let userId = this.userId;
     let promise = MaxSocialNative.updateLocation({userId, latitude, longitude});

@@ -194,7 +194,8 @@ RCT_EXPORT_METHOD(postShuo:(NSDictionary *)params
         if (succeeded) {
             NSDictionary *dict = @{@"objectId": shuo.objectId,
                                    @"createdAt": [MLInternalUtils stringFromDate:shuo.createdAt]?:[NSNull null]};
-            resolve(dict);
+            NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
+            resolve([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } else {
             reject([@(error.code) stringValue],
                    error.localizedDescription,

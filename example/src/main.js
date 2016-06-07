@@ -56,7 +56,7 @@ var imageUrl = '';
 var shuo = {
       text: 'this is the datails of shuo',
       // link: 'http://www.maxleap.cn', // webpage link
-      imgPaths: ['file:///sdcard/me.jpeg'],
+      imgPaths: ['/Users/johnny/Documents/me.jpeg'],
       location: {
         latitude: 31, // [-90, 90]
         longitude: 23 // [-180, 180]
@@ -179,11 +179,6 @@ export default class Main extends Component {
             style={[{backgroundColor: 'aqua'},styles.btnMargin]}
             onPress={this._fetchShuoNear.bind(this)}>
           <Text>fetch Shuo Near!!!</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-            style={[{backgroundColor: 'aqua'},styles.btnMargin]}
-            onPress={this._downloadImg.bind(this)}>
-          <Text>download image!!!</Text>
         </TouchableHighlight>
         <TouchableHighlight
             style={[{backgroundColor: 'aqua'},styles.btnMargin]}
@@ -408,10 +403,10 @@ export default class Main extends Component {
   }
 
   _updateLocation() {
-    new MaxSocial.User(userId).updateLocation(50, 50)
+    new MaxSocial.User(userId).updateLocation(latitude, longitude)
     .then(function(result) {
       console.log(result);
-      locationId = result.objectId;
+      locationId = JSON.parse(result).objectId;
     })
     .catch(e=>console.log(e));
   }
@@ -491,6 +486,7 @@ export default class Main extends Component {
   _postShuo() {
     new MaxSocial.User(userId).postShuo(shuo)
     .then(function(result) {
+      debugger;
       console.log(result);
       shuoId = JSON.parse(result).objectId;
     })
@@ -501,6 +497,7 @@ export default class Main extends Component {
     new MaxSocial.User(userId).fetchShuo(shuoId)
     .then(function(result) {
       console.log(result);
+      imageUrl = JSON.parse(result).photopath[0];
     })
     .catch(e=>console.log(e));
   }
@@ -531,13 +528,13 @@ export default class Main extends Component {
 
   // // _getPhotoList() { 没有这个方法}
 
-  _downloadImg() {
-    new MaxSocial.User(userId).downloadImg(imageUrl, shuoId, function(p){
-      console.log(p);
-    }) //此处有疑问
-    // .then(result=>console.log(result))
-    // .catch(e=>console.log(e));
-  }
+  // _downloadImg() {
+  //   new MaxSocial.User(userId).downloadImg(imageUrl, shuoId, function(p){
+  //     console.log(p);
+  //   }) //此处有疑问
+  //   // .then(result=>console.log(result))
+  //   // .catch(e=>console.log(e));
+  // }
 
   // // _deletePhoto() {}
 
