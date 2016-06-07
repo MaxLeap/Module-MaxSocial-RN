@@ -110,7 +110,7 @@ class MaxSocialUser {
   */
   findFollowers(params={pageId:0, sort:1, asc:false}) {
     params.userId = this.userId;
-    let promise = MaxSocialNative.findFollower(params);
+    let promise = MaxSocialNative.findFollowers(params);
     return promise;
   }
 
