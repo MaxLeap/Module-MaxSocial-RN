@@ -328,7 +328,7 @@ RCT_EXPORT_METHOD(deleteLocation:(NSString *)locId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/%@", locId];
+    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/objectId/%@", locId];
     [self deletePath:path body:nil completion:COMPLETION_BLOCK];
 }
 
