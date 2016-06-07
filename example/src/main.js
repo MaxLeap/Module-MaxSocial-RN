@@ -343,7 +343,7 @@ export default class Main extends Component {
     new MaxSocial.User(userId).follow(anotherUserId, reverse)
     .then(function(result) {
       console.log(result);
-      relationId = result[0].objectId;
+      relationId = JSON.parse(result)[0].objectId;
     })
     .catch(e=>console.log(e));
   }
@@ -486,7 +486,6 @@ export default class Main extends Component {
   _postShuo() {
     new MaxSocial.User(userId).postShuo(shuo)
     .then(function(result) {
-      debugger;
       console.log(result);
       shuoId = JSON.parse(result).objectId;
     })
