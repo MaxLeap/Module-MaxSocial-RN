@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -346,15 +347,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getLocationByUserId(String json, final Promise promise) {
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            final String userId = null;
-            final String followerId = null;
-            final boolean reverse = false;
-            final boolean black = false;
-            final String objectId = null;
-            final Constraint constraint = null;
+    public void getLocationByUserId(final String userId, final Promise promise) {
             worker.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -366,9 +359,6 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
                     }
                 }
             });
-        } catch (JSONException e) {
-            promise.reject(e);
-        }
     }
 
     //comment
@@ -491,7 +481,6 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     public void postShuo(ReadableMap map, final Promise promise) {
         final ShuoShuo shuoShuo = new ShuoShuo();
         ReadableMap shuoMap = map.getMap("shuo");
-        System.out.println(shuoMap);
         shuoShuo.setContent(optString(shuoMap, TEXT));
         shuoShuo.setUserId(optString(map, USER_ID));
         shuoShuo.setLink(optString(shuoMap, LINK));
@@ -505,6 +494,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
                 uploadedFile.setFileName(file.getName());
                 byte[] data = readFile(file);
                 if (data != null) {
+                    uploadedFile.setData(data);
                     files[i] = uploadedFile;
                 }
             }
@@ -614,31 +604,8 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         });
     }
 
-//    @ReactMethod
-//    public void getPhotoList(String json, final Promise promise) {
-//        try {
-//            JSONObject jsonObject = new JSONObject(json);
-//            final String userId = null;
-//            final String objectId = null;
-//            worker.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        JSONArray result = shuoShuoService.getPhotoList(userId, objectId);
-//                        promise.resolve(result.toString());
-//                    } catch (HermsException e) {
-//                        promise.reject("" + e.getErrorCode(), e.getMessage());
-//                    }
-//                }
-//            });
-//        } catch (JSONException e) {
-//            promise.reject(e);
-//        }
-//    }
-
     @ReactMethod
     public void downloadImg(ReadableMap map, final Callback ck, final Promise promise) {
-        System.out.println(map);
         final String userId = map.getString(USER_ID);
         final String objectId = map.getString(SHUO_ID);
         final String fileName = map.getString("imageUrl");
@@ -670,32 +637,6 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
             }
         });
     }
-
-//    @ReactMethod
-//    public void deletePhoto(String json, final Promise promise) {
-//        try {
-//            JSONObject jsonObject = new JSONObject(json);
-//            final String userId = null;
-//            final String followerId = null;
-//            final boolean reverse = false;
-//            final boolean black = false;
-//            final String objectId = null;
-//            final Constraint constraint = null;
-//            worker.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        JSONObject result = shuoShuoService.deletePhoto(userId, objectId);
-//                        promise.resolve(result.toString());
-//                    } catch (HermsException e) {
-//                        promise.reject("" + e.getErrorCode(), e.getMessage());
-//                    }
-//                }
-//            });
-//        } catch (JSONException e) {
-//            promise.reject(e);
-//        }
-//    }
 
     @ReactMethod
     public void fetchShuoNear(ReadableMap map, final Promise promise) {
@@ -729,57 +670,6 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         });
     }
 
-//    @ReactMethod
-//    public void getLatestShuoShuo(String json, final Promise promise) {
-//        try {
-//            JSONObject jsonObject = new JSONObject(json);
-//            final String userId = null;
-//            final String followerId = null;
-//            final boolean reverse = false;
-//            final boolean black = false;
-//            final String objectId = null;
-//            final Constraint constraint = null;
-//            worker.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        JSONObject result = shuoShuoService.getLatestShuoShuo(constraint);
-//                        promise.resolve(result.toString());
-//                    } catch (HermsException e) {
-//                        promise.reject("" + e.getErrorCode(), e.getMessage());
-//                    }
-//                }
-//            });
-//        } catch (JSONException e) {
-//            promise.reject(e);
-//        }
-//    }
-
-//    @ReactMethod
-//    public void getFriendCycleShuoShuo(String json, final Promise promise) {
-//        try {
-//            JSONObject jsonObject = new JSONObject(json);
-//            final String userId = null;
-//            final String followerId = null;
-//            final boolean reverse = false;
-//            final boolean black = false;
-//            final String objectId = null;
-//            final Constraint constraint = null;
-//            worker.execute(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        JSONObject result = shuoShuoService.getFriendCycleShuoShuo(userId, constraint);
-//                        promise.resolve(result.toString());
-//                    } catch (HermsException e) {
-//                        promise.reject("" + e.getErrorCode(), e.getMessage());
-//                    }
-//                }
-//            });
-//        } catch (JSONException e) {
-//            promise.reject(e);
-//        }
-//    }
 
     @ReactMethod
     public void signUp(ReadableMap map, final Promise promise) {
@@ -923,6 +813,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
             }
             return out.toByteArray();
         } catch (IOException e) {
+            e.printStackTrace();
         } finally {
             if (in != null) {
                 try {
