@@ -32,6 +32,6 @@ android {
 dependencies {
     compile 'com.facebook.react:react-native:+'
     // From node_modules
-    provided fileTree(dir: "libs", include: ["*.jar"])
-    compile(name:'maxleap-social-v0.0.2', ext:'aar')
+    provided fileTree(include: ['*.jar'], dir: 'libs')
+    compile(name:'maxleap-sdk-social-v0.0.3', ext:'aar')
 }
