@@ -304,7 +304,7 @@ RCT_EXPORT_METHOD(getLocation:(NSString *)locationObjectId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/%@", locationObjectId];
+    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/objectId/%@", locationObjectId];
     [self get:path params:nil completion:COMPLETION_BLOCK];
 }
 
