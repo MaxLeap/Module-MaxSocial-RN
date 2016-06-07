@@ -19,6 +19,10 @@
 
 #define COMPLETION_BLOCK \
 ^(id _Nullable result, NSError * _Nullable error) { \
+    if (!error && result && ![result isKindOfClass:[NSString class]]) { \
+        NSData *data = [NSJSONSerialization dataWithJSONObject:result options:kNilOptions error:&error]; \
+        result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]; \
+    } \
     if (error) { \
         reject([@(error.code) stringValue], \
                error.localizedDescription, \
@@ -291,7 +295,7 @@ RCT_EXPORT_METHOD(getLocation:(NSString *)locationObjectId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/%@", userId];
+    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/%@", locationObjectId];
     [self get:path params:nil completion:COMPLETION_BLOCK];
 }
 
