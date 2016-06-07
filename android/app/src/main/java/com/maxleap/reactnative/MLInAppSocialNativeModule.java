@@ -15,13 +15,17 @@ import com.maxleap.social.ShuoShuoService;
 import com.maxleap.social.SocialPassService;
 import com.maxleap.social.entity.Constraint;
 import com.maxleap.social.entity.ShuoShuo;
+import com.maxleap.social.entity.UploadedFile;
 import com.maxleap.social.thirdparty.internal.ProgressCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.SQLOutput;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,7 +84,6 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     public String getName() {
         return LIBRARY_NAME;
     }
-
 
 
     //    relation
@@ -491,7 +494,22 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         shuoShuo.setContent(optString(shuoMap, TEXT));
         shuoShuo.setUserId(optString(map, USER_ID));
         shuoShuo.setLink(optString(shuoMap, LINK));
-        shuoShuo.setPhotoPath(converArray(optArray(shuoMap, IMAGE_PATH)));
+
+        ReadableArray photoPaths = optArray(shuoMap, IMAGE_PATH);
+        if (null != photoPaths && photoPaths.size() > 0) {
+            UploadedFile[] files = new UploadedFile[photoPaths.size()];
+            for (int i = 0; i < photoPaths.size(); i++) {
+                UploadedFile uploadedFile = new UploadedFile();
+                File file = new File(photoPaths.getString(i));
+                uploadedFile.setFileName(file.getName());
+                byte[] data = readFile(file);
+                if (data != null) {
+                    files[i] = uploadedFile;
+                }
+            }
+            shuoShuo.setUploadedFiles(files);
+        }
+
         ReadableMap location = optMap(shuoMap, LOCATION);
         if (location != null) {
             shuoShuo.setLatitude(optDouble(location, LATITUDE));
@@ -795,7 +813,8 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void requestSmsCode(final String mobilePhone, final Promise promise) {;
+    public void requestSmsCode(final String mobilePhone, final Promise promise) {
+        ;
         worker.execute(new Runnable() {
             @Override
             public void run() {
@@ -868,6 +887,29 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
     private ReadableArray optArray(ReadableMap map, String key) {
         if (map.hasKey(key)) {
             return map.getArray(key);
+        }
+        return null;
+    }
+
+    private byte[] readFile(File file) {
+        FileInputStream in = null;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            in = new FileInputStream(file);
+            byte[] buffer = new byte[4098];
+            int len = -1;
+            while ((len = in.read(buffer)) > 0) {
+                out.write(buffer, 0, len);
+            }
+            return out.toByteArray();
+        } catch (IOException e) {
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                }
+            }
         }
         return null;
     }
