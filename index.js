@@ -202,6 +202,7 @@ class MaxSocialUser {
   downloadImg(imageUrl, shuoId, progress=p=>{}) {
     let userId = this.userId;
     let params = {userId, imageUrl, shuoId};
+    debugger;
     let promise = MaxSocialNative.downloadImg(params, progress);
     return promise;
   }

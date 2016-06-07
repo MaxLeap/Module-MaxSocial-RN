@@ -19,17 +19,17 @@
 
 #define COMPLETION_BLOCK \
 ^(id _Nullable result, NSError * _Nullable error) { \
-    if (!error && result && ![result isKindOfClass:[NSString class]]) { \
-        NSData *data = [NSJSONSerialization dataWithJSONObject:result options:kNilOptions error:&error]; \
-        result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]; \
-    } \
-    if (error) { \
-        reject([@(error.code) stringValue], \
-               error.localizedDescription, \
-               error); \
-    } else { \
-        resolve(result); \
-    } \
+if (!error && result && ![result isKindOfClass:[NSString class]]) { \
+NSData *data = [NSJSONSerialization dataWithJSONObject:result options:kNilOptions error:&error]; \
+result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]; \
+} \
+if (error) { \
+reject([@(error.code) stringValue], \
+error.localizedDescription, \
+error); \
+} else { \
+resolve(result); \
+} \
 }
 
 //#define BOOL_COMPLETION_BLOCK
@@ -135,10 +135,10 @@ RCT_EXPORT_METHOD(checkStatusBetweenUser:(NSDictionary *)params
 
 /**
  {
-    page: 0,
-    limit: 10,
-    sort: 1,          // 0 byUserId, 1 byCreatedTime
-    ascending: false
+ page: 0,
+ limit: 10,
+ sort: 1,          // 0 byUserId, 1 byCreatedTime
+ ascending: false
  }
  */
 RCT_EXPORT_METHOD(findFollowees:(NSDictionary *)params

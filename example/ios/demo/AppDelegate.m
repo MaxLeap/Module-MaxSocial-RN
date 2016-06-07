@@ -16,7 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [MaxLeap setApplicationId:@"56b01ed8169e7d0001975c2a" clientKey:@"WWxDbFIxblNIVGIwQmcxREhuUnFNUQ" site:MLSiteCN];
+  [MaxLeap setApplicationId:@"574ff56a169e7d0001a56008" clientKey:@"VHV0TlRnVzB3OFhBdDVQc0E2RnVUUQ" site:MLSiteCN];
   
   NSURL *jsCodeLocation;
 
