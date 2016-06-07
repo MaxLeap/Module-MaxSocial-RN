@@ -657,7 +657,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
                                 public boolean onProgress(int i) {
 //                                    promise.resolve(i);
                                     ck.invoke(i);
-                                    if(i==100) {
+                                    if (i == 100) {
                                         promise.resolve(null);
                                     }
                                     return false;
@@ -702,11 +702,25 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
         final double longitude = optDouble(map, LONGITUDE);
         final double latitude = optDouble(map, LATITUDE);
         final long distance = optInt(map, DISTANCE);
+        ReadableMap tagsMap = optMap(map, "tags");
+        JSONObject tagsJSON = null;
+        if (tagsMap != null) {
+            tagsJSON = new JSONObject();
+            ReadableMapKeySetIterator iterator = tagsMap.keySetIterator();
+            while (iterator.hasNextKey()) {
+                String key = iterator.nextKey();
+                try {
+                    tagsJSON.put(key, tagsMap.getString(key));
+                } catch (JSONException ignored) {
+                }
+            }
+        }
+        final JSONObject tags = tagsJSON;
         worker.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    JSONArray result = shuoShuoService.getNearByShuoshuos(longitude, latitude, distance);
+                    JSONObject result = shuoShuoService.getNearByShuoshuos(longitude, latitude, distance, tags);
                     promise.resolve(result.toString());
                 } catch (HermsException e) {
                     promise.reject("" + e.getErrorCode(), e.getMessage());
