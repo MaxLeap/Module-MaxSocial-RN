@@ -1,5 +1,6 @@
 package com.maxleap.reactnative;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -15,6 +16,7 @@ import com.maxleap.social.ShuoShuoService;
 import com.maxleap.social.SocialPassService;
 import com.maxleap.social.entity.Constraint;
 import com.maxleap.social.entity.ShuoShuo;
+import com.maxleap.social.entity.UploadedFile;
 import com.maxleap.social.thirdparty.internal.ProgressCallback;
 
 import org.json.JSONArray;
@@ -579,6 +581,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void fetchFriendCycleShuo(ReadableMap map, final Promise promise) {
+        System.out.println(map);
         final String userId = map.getString(USER_ID);
         ReadableMap paramsMap = map.getMap("params");
         final Constraint constraint = mapConstraint(paramsMap);
@@ -618,7 +621,8 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
 //    }
 
     @ReactMethod
-    public void downloadImg(ReadableMap map, final Promise promise) {
+    public void downloadImg(ReadableMap map, final Callback ck, final Promise promise) {
+        System.out.println(map);
         final String userId = map.getString(USER_ID);
         final String objectId = map.getString(SHUO_ID);
         final String fileName = map.getString("imageUrl");
@@ -635,7 +639,11 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
                             new ProgressCallback() {
                                 @Override
                                 public boolean onProgress(int i) {
-                                    promise.resolve(i);
+//                                    promise.resolve(i);
+                                    ck.invoke(i);
+                                    if(i==100) {
+                                        promise.resolve(null);
+                                    }
                                     return false;
                                 }
                             }
@@ -683,6 +691,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
             public void run() {
                 try {
                     JSONArray result = shuoShuoService.getNearByShuoshuos(longitude, latitude, distance);
+                    System.out.println(result);
                     promise.resolve(result.toString());
                 } catch (HermsException e) {
                     promise.reject("" + e.getErrorCode(), e.getMessage());

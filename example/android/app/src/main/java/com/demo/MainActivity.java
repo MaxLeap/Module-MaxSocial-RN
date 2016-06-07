@@ -21,6 +21,7 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        MLHermes.useServer("http://apiuat.maxleap.cn/2.0");
         MLHermes.initialize(this, APP_ID, API_KEY);
         super.onCreate(savedInstanceState);
     }
