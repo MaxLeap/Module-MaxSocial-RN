@@ -733,7 +733,7 @@ public class MLInAppSocialNativeModule extends ReactContextBaseJavaModule {
 //    public void getLatestShuoShuo(String json, final Promise promise) {
 //        try {
 //            JSONObject jsonObject = new JSONObject(json);
-//            final String userId = null;
+//            final String userId = null;a
 //            final String followerId = null;
 //            final boolean reverse = false;
 //            final boolean black = false;
