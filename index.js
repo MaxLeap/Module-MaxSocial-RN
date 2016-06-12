@@ -144,12 +144,6 @@ class MaxSocialUser {
     return promise;
   }
 
-  deleteShuoPhotos(shuoId) {
-    let userId = this.userId;
-    let promise = MaxSocialNative.deleteShuoPhotos({userId, shuoId});
-    return promise;
-  }
-
   /**
     Fetch the shuoshuo of the receiver.
     @param params
@@ -200,20 +194,6 @@ class MaxSocialUser {
     let promise = MaxSocialNative.fetchShuoNear(params);
     return promise;
   }
-
-  // getImageNamesOfShuoShuo
-
-  // unneccessary
-  // downloadImg().then(imgPath=>{})
-  downloadImg(imageUrl, shuoId, progress=p=>{}) {
-    let userId = this.userId;
-    let params = {userId, imageUrl, shuoId};
-    debugger;
-    let promise = MaxSocialNative.downloadImg(params, progress);
-    return promise;
-  }
-
-
 
   updateLocation(latitude=0, longitude=0) {
     let userId = this.userId;

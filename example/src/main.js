@@ -56,7 +56,7 @@ var imageUrl = '';
 var shuo = {
       text: 'this is the datails of shuo',
       // link: 'http://www.maxleap.cn', // webpage link
-      imgPaths: ['file:///sdcard/me.jpeg'],
+      imgPaths: ['/Users/johnny/Documents/me.jpeg'],
       location: {
         latitude: 31, // [-90, 90]
         longitude: 23 // [-180, 180]
@@ -182,11 +182,6 @@ export default class Main extends Component {
         </TouchableHighlight>
         <TouchableHighlight
             style={[{backgroundColor: 'aqua'},styles.btnMargin]}
-            onPress={this._downloadImg.bind(this)}>
-          <Text>download image!!!</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-            style={[{backgroundColor: 'aqua'},styles.btnMargin]}
             onPress={this._likeShuo.bind(this)}>
           <Text>like shuo!!!</Text>
         </TouchableHighlight>
@@ -261,7 +256,7 @@ export default class Main extends Component {
         <TouchableHighlight
             style={[{backgroundColor: 'aqua'},styles.btnMargin]}
             onPress={this._checkStatusBetweenUser.bind(this)}>
-          <Text>get Relation information between Users!!!</Text>
+          <Text>check Status Between Users!!!</Text>
         </TouchableHighlight>
 
         <TouchableHighlight
@@ -348,7 +343,7 @@ export default class Main extends Component {
     new MaxSocial.User(userId).follow(anotherUserId, reverse)
     .then(function(result) {
       console.log(result);
-      relationId = result.objectId;
+      relationId = JSON.parse(result)[0].objectId;
     })
     .catch(e=>console.log(e));
   }
@@ -408,10 +403,10 @@ export default class Main extends Component {
   }
 
   _updateLocation() {
-    new MaxSocial.User(userId).updateLocation(50, 50)
+    new MaxSocial.User(userId).updateLocation(latitude, longitude)
     .then(function(result) {
       console.log(result);
-      locationId = result.objectId;
+      locationId = JSON.parse(result).objectId;
     })
     .catch(e=>console.log(e));
   }
@@ -451,7 +446,10 @@ export default class Main extends Component {
 
   _likeShuo() {
     new MaxSocial.User(userId).likeShuo(shuoId)
-    .then(result => console.log(result))
+    .then(function(result) {
+      console.log(result);
+      commentId = JSON.parse(result).objectId;
+    })
     .catch(e=>console.log(e));
   }
 
@@ -498,6 +496,7 @@ export default class Main extends Component {
     new MaxSocial.User(userId).fetchShuo(shuoId)
     .then(function(result) {
       console.log(result);
+      imageUrl = JSON.parse(result).photopath[0];
     })
     .catch(e=>console.log(e));
   }
@@ -528,13 +527,13 @@ export default class Main extends Component {
 
   // // _getPhotoList() { 没有这个方法}
 
-  _downloadImg() {
-    new MaxSocial.User(userId).downloadImg(imageUrl, shuoId, function(p){
-      console.log(p);
-    }) //此处有疑问
-    // .then(result=>console.log(result))
-    // .catch(e=>console.log(e));
-  }
+  // _downloadImg() {
+  //   new MaxSocial.User(userId).downloadImg(imageUrl, shuoId, function(p){
+  //     console.log(p);
+  //   }) //此处有疑问
+  //   // .then(result=>console.log(result))
+  //   // .catch(e=>console.log(e));
+  // }
 
   // // _deletePhoto() {}
 

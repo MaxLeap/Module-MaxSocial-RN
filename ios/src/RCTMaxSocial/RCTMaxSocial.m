@@ -194,7 +194,8 @@ RCT_EXPORT_METHOD(postShuo:(NSDictionary *)params
         if (succeeded) {
             NSDictionary *dict = @{@"objectId": shuo.objectId,
                                    @"createdAt": [MLInternalUtils stringFromDate:shuo.createdAt]?:[NSNull null]};
-            resolve(dict);
+            NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
+            resolve([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         } else {
             reject([@(error.code) stringValue],
                    error.localizedDescription,
@@ -303,7 +304,7 @@ RCT_EXPORT_METHOD(getLocation:(NSString *)locationObjectId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/%@", locationObjectId];
+    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/objectId/%@", locationObjectId];
     [self get:path params:nil completion:COMPLETION_BLOCK];
 }
 
@@ -327,7 +328,7 @@ RCT_EXPORT_METHOD(deleteLocation:(NSString *)locId
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/%@", locId];
+    NSString *path = [NSString stringWithFormat:@"/maxsocial/location/objectId/%@", locId];
     [self deletePath:path body:nil completion:COMPLETION_BLOCK];
 }
 
@@ -405,7 +406,7 @@ RCT_EXPORT_METHOD(signUp:(NSDictionary *)params
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = @"/socialpass/register";
+    NSString *path = @"/maxsocial/socialpass/register";
     [self post:path body:params completion:COMPLETION_BLOCK];
 }
 
@@ -413,7 +414,7 @@ RCT_EXPORT_METHOD(login:(NSDictionary *)params
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = @"/socialpass/login";
+    NSString *path = @"/maxsocial/socialpass/login";
     [self post:path body:params completion:COMPLETION_BLOCK];
 }
 
@@ -421,7 +422,7 @@ RCT_EXPORT_METHOD(requestSmsCode:(NSString *)phoneNumber
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = @"/socialpass/smsCode";
+    NSString *path = @"/maxsocial/socialpass/smsCode";
     [self post:path body:@{@"mobilePhone":phoneNumber} completion:COMPLETION_BLOCK];
 }
 
@@ -429,7 +430,7 @@ RCT_EXPORT_METHOD(loginByMobile:(NSDictionary *)params
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString *path = @"/socialpass/loginByMobile";
+    NSString *path = @"/maxsocial/socialpass/loginByMobile";
     [self post:path body:params completion:COMPLETION_BLOCK];
 }
 
