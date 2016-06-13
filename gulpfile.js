@@ -4,7 +4,7 @@ var exec = require('child_process').exec;
 gulp.task('build-android', function (cb) {
   exec('cd android && ./gradlew clean assemble \
         && cp app/build/outputs/aar/app-release.aar ../dist/android \
-        && mv ../dist/android/app-release.aar ../dist/android/maxleap-react-native.aar',
+        && mv ../dist/android/app-release.aar ../dist/android/maxleap-social-react-native.aar',
    function (err, stdout, stderr) {
      console.log(stdout);
      console.log(stderr);

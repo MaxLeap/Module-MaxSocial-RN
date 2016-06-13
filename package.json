@@ -1,5 +1,5 @@
 {
-  "name": "maxleap-socialshare-react-native",
+  "name": "maxleap-social-react-native",
   "version": "0.0.1",
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh"
