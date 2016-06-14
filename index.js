@@ -7,17 +7,35 @@ const MaxSocialNative = NativeModules.MaxSocial;
 
 class MaxSocial {}
 
+async function jsonToObject(json) {
+  return await JSON.parse(json)
+}
+
 class MaxSocialUser {
   constructor(userId) {
     invariant(userId, 'Cannot create a social user object without userId.');
     this.userId = userId;
   }
 
+  /**
+   * Static Method. Sign up using a username and password.
+   *
+   * @param  {[string]} username The username
+   * @param  {[string]} password The password
+   * @return {[promise]}         A promise that resolve with an object represents the user.
+   */
   static signUp(username, password) {
     let promise = MaxSocialNative.signUp({username, password});
     return promise;
   }
 
+  /**
+   * Login with username and password.
+   *
+   * @param  {[string]} username the username
+   * @param  {[string]} password the password
+   * @return {[promise]}         A promise that resolve with an object represents the user.
+   */
   static login(username, password) {
     let promise = MaxSocialNative.login({username, password});
     return promise;

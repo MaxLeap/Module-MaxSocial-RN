@@ -1,9 +1,16 @@
-# MaxSocial
+# MaxSocial RN [![npm version](https://badge.fury.io/js/maxsocial-react-native.svg)](http://badge.fury.io/js/maxsoical-react-native)
 
 ## 集成 SDK
 
+1. **重要：**先安装 `maxleap-react-native`, 参照 [MaxLeap RN 开发文档](http://badge.fury.io/js/maxleap-react-native)
 
+2. 安装 `maxsocial-react-native`
 
+	```bash
+	npm install --save maxsocial-react-native
+	```
+
+3. 打开 Finder，找到本项目的根目录，使用 Xcode 打开 iOS 工程（双击 .xcodeproj 文件即可），然后导航到 `/node_modules/maxlogin-react-native/ios/lib` 目录，把该目录下的 frameworks 都拖到 Xcode 工程中
 
 ### 集成 Android 环境
 
