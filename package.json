@@ -29,12 +29,12 @@
     "Android",
     "iOS"
   ],
-  "author": "sidneyxu",
-  "license": "MIT",
+  "author": "MaxLeap",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MaxLeap/SDK-ReactNative/issues"
+    "url": "https://github.com/MaxLeap/Module-MaxSocial-RN/issues"
   },
-  "homepage": "https://github.com/MaxLeap/SDK-ReactNative#readme",
+  "homepage": "https://github.com/MaxLeap/Module-MaxSocial-RN",
   "jshintConfig": {
     "esversion": 6
   }
